@@ -25,6 +25,7 @@
 
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
+#include "freertos/task_snapshot.h"
 #include "freertos/ringbuf.h"
 #include "freertos/semphr.h"
 
