@@ -3,6 +3,7 @@
 
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
+#include "freertos/task_snapshot.h"
 #include "esp_system.h"
 
 void esp_print_tasks(void)
