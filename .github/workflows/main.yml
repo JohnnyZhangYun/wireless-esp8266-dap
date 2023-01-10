@@ -61,7 +61,7 @@ jobs:
       if: matrix.target-hardware != 'esp8266'
       uses: espressif/esp-idf-ci-action@v1
       with:
-        esp_idf_version: v5.0
+        esp_idf_version: v4.4.3
         target: ${{ matrix.target-hardware }}
         path: './'
 
