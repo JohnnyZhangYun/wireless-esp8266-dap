@@ -864,7 +864,7 @@ when a device needs a time-critical unlock sequence that enables the debug port.
 */
 __STATIC_INLINE uint8_t RESET_TARGET(void)
 {
-
+/*
 uint32_t data;
     //soft-reset for Cortex-M
 	data = 0xE000ED0C;
@@ -878,7 +878,7 @@ uint32_t data;
    dap_os_delay(2);
 	data = 0x05FA0007;
     SWD_Transfer(0x00000CDD, &data);
-	
+	*/
   PIN_nRESET_OUT(0);
   dap_os_delay(2);
   PIN_nRESET_OUT(1);
