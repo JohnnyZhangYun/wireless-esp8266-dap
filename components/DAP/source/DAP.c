@@ -1633,9 +1633,6 @@ static uint32_t DAP_WriteAbort(const uint8_t *request, uint8_t *response) {
   return ((5U << 16) | num);
 }
 
-#define SCB_AIRCR_VECTKEY_Pos              16U                                          
-#define SCB_AIRCR_VECTKEY_Msk              (0xFFFFUL << SCB_AIRCR_VECTKEY_Pos) 
-extern uint8_t swd_write_word(uint32_t addr, uint32_t val);
 // Process DAP Vendor command request and prepare response
 // Default function (can be overridden)
 //   request:  pointer to request data
@@ -1677,11 +1674,6 @@ uint32_t DAP_ProcessCommand(const uint8_t *request, uint8_t *response) {
       num = DAP_Connect(request, response);
       break;
     case ID_DAP_Disconnect:
-      if(DAP_Data.debug_port == DAP_PORT_SWD)
-      {
-       // swd_init_debug();
-	      swd_write_word((uint32_t)(0xE000E00C), ((0x5FA << SCB_AIRCR_VECTKEY_Pos) | SCB_AIRCR_SYSRESETREQ_Msk));
-      }
       num = DAP_Disconnect(response);
       break;
 
