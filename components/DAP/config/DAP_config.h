@@ -52,7 +52,7 @@
 #include "components/DAP/include/cmsis_compiler.h"
 #include "components/DAP/include/gpio_op.h"
 #include "components/DAP/include/spi_switch.h"
-
+#include "components/DAP/include/dap.h"
 
 #ifdef CONFIG_IDF_TARGET_ESP8266
   #include "gpio.h"
@@ -865,6 +865,16 @@ when a device needs a time-critical unlock sequence that enables the debug port.
 __STATIC_INLINE uint8_t RESET_TARGET(void)
 {
 
+  uint32_t i;
+    //soft-reset for Cortex-M
+    SWD_Transfer(0x00000CC5, 0xE000ED0C); //set AIRCR address
+    for (i=0; i<100; i++);
+    SWD_Transfer(0x00000CDD, 0x05FA0007); //set RESET data
+    for (i=0; i<100; i++);
+    SWD_Transfer(0x00000CC5, 0xE000ED0C); //repeat
+    for (i=0; i<100; i++);
+    SWD_Transfer(0x00000CDD, 0x05FA0007);
+	
   PIN_nRESET_OUT(0);
   dap_os_delay(2);
   PIN_nRESET_OUT(1);
