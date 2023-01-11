@@ -248,7 +248,7 @@ static uint32_t DAP_Disconnect(uint8_t *response) {
 }
 
 extern void dap_os_delay(int ms);
-static uint32_t DAP_SoftResetTarget(uint8_t *response) {
+static uint32_t DAP_SoftResetTarget(void) {
 uint32_t data;
     //soft-reset for Cortex-M
 	data = 0xE000ED0C;
