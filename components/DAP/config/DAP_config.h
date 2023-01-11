@@ -865,18 +865,17 @@ when a device needs a time-critical unlock sequence that enables the debug port.
 __STATIC_INLINE uint8_t RESET_TARGET(void)
 {
 
-  uint32_t i;
 uint32_t data;
     //soft-reset for Cortex-M
 	data = 0xE000ED0C;
     SWD_Transfer(0x00000CC5, &data); //set AIRCR address
-    for (i=0; i<100; i++);
+    dap_os_delay(2);
 	data = 0x05FA0007;
     SWD_Transfer(0x00000CDD, &data); //set RESET data
-    for (i=0; i<100; i++);
+   dap_os_delay(2);
 	data = 0xE000ED0C;
     SWD_Transfer(0x00000CC5, &data); //repeat
-    for (i=0; i<100; i++);
+   dap_os_delay(2);
 	data = 0x05FA0007;
     SWD_Transfer(0x00000CDD, &data);
 	
