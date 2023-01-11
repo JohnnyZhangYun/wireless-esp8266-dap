@@ -333,7 +333,7 @@ static uint32_t DAP_SWJ_Pins(const uint8_t *request, uint8_t *response) {
     PIN_nTRST_OUT(value >> DAP_SWJ_nTRST);
   }
   if ((select & (1U << DAP_SWJ_nRESET)) != 0U){
-	  DAP_SoftResetTarget();
+	  if((value >> DAP_SWJ_nRESET) == 0)DAP_SoftResetTarget();
     PIN_nRESET_OUT(value >> DAP_SWJ_nRESET);
   }
 
