@@ -248,6 +248,25 @@ static uint32_t DAP_Disconnect(uint8_t *response) {
 }
 
 extern void dap_os_delay(int ms);
+static uint32_t DAP_SoftResetTarget(uint8_t *response) {
+uint32_t data;
+    //soft-reset for Cortex-M
+	data = 0xE000ED0C;
+    SWD_Transfer(0x00000CC5, &data); //set AIRCR address
+    dap_os_delay(2);
+	data = 0x05FA0007;
+    SWD_Transfer(0x00000CDD, &data); //set RESET data
+   dap_os_delay(2);
+	data = 0xE000ED0C;
+    SWD_Transfer(0x00000CC5, &data); //repeat
+   dap_os_delay(2);
+	data = 0x05FA0007;
+    SWD_Transfer(0x00000CDD, &data);
+	
+  return (2U);
+}
+
+
 // Process Reset Target command and prepare response
 //   response: pointer to response data
 //   return:   number of bytes in response
@@ -1686,6 +1705,7 @@ uint32_t DAP_ProcessCommand(const uint8_t *request, uint8_t *response) {
       num = DAP_Connect(request, response);
       break;
     case ID_DAP_Disconnect:
+		  DAP_SoftResetTarget();
       num = DAP_Disconnect(response);
       break;
 
