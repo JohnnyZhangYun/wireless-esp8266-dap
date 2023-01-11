@@ -254,13 +254,13 @@ uint32_t data;
 	data = 0xE000ED0C;
     SWD_Transfer(0x00000CC5, &data); //set AIRCR address
     dap_os_delay(2);
-	data = 0x05FA0007;
+	data = 0x05FA0004;
     SWD_Transfer(0x00000CDD, &data); //set RESET data
    dap_os_delay(2);
 	data = 0xE000ED0C;
     SWD_Transfer(0x00000CC5, &data); //repeat
    dap_os_delay(2);
-	data = 0x05FA0007;
+	data = 0x05FA0004;
     SWD_Transfer(0x00000CDD, &data);
 	
   return (2U);
